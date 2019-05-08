@@ -81,8 +81,8 @@ def dist_data(name):
 def plot_line():
 	plt.plot(line_data('design_3.txt'),label='TAALK')
 	plt.plot(line_data('maglev_2.txt'),label='Maglev')
-	plt.ylabel('Completion Time')
-	plt.xlabel('Flow')
+	plt.ylabel('Completion Time in seconds')
+	plt.xlabel('Flow Number')
 	plt.title("Completion Times for TAALK vs. Maglev")
 	plt.legend(loc='upper left')
 	plt.show()
@@ -112,9 +112,8 @@ def plot_box():
 	fig.set_figwidth(40)
 	ax.set_title('Completion Times with Variance for TAALK vs. Maglev')
 	ax.set_ylim(top=5)
-	plt.xticks(rotation=90)
-	plt.ylabel('Completion Time')
-	plt.xlabel('Flow')
+	plt.ylabel('Completion Time in Seconds')
+	plt.xlabel('Flow Number')
 	# temp lines for legend
 	plt.plot([], c='red', label='TAALK')
 	plt.plot([], c='blue', label='Maglev')
@@ -123,14 +122,18 @@ def plot_box():
 	maglev_data = box_data('maglev_2.txt')
 	bp_design = ax.boxplot(design_data)
 	color_box(bp_design, 'red')
+	for label in ax.get_xticklabels()[::2]:
+		label.set_visible(False)
 	bp_maglev = ax.boxplot(maglev_data)
 	color_box(bp_maglev, 'blue')
+	for label in ax.get_xticklabels()[::2]:
+		label.set_visible(False)
 	plt.show()
 
 
 # main
-# plot_box()
 # plot_line()
-plot_dist('maglev_2.txt')
-plot_dist('design_3.txt')
+plot_box()
+# plot_dist('maglev_2.txt')
+# plot_dist('design_3.txt')
 
