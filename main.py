@@ -41,6 +41,17 @@ def box_data(name):
 			flow_data = np.append(flow_data,time)
 	return data
 
+def all_dist_data(name):
+	f = open(name, 'r')
+	data = []
+	for line in f:
+		# # of flows, flow #, sample, completion time
+		flow, n, s, time = line.split(":",4)
+		time = float(time[:len(time)-2]) # rid of \n
+		if flow == '93':
+			data.append(time)
+	return data
+
 def dist_data(name):
 	list_tuples = []
 	f = open(name, 'r')
@@ -77,7 +88,6 @@ def dist_data(name):
 			count += 1
 	return np.sort(data)
 
-
 def plot_line():
 	plt.plot(line_data('design_3.txt'),label='TAALK')
 	plt.plot(line_data('maglev_2.txt'),label='Maglev')
@@ -88,10 +98,10 @@ def plot_line():
 	plt.show()
 
 def plot_dist(name):
-	data = dist_data(name)
-	plt.hist(data, normed=True, bins=10)
+	data = all_dist_data(name)
+	plt.hist(data, bins=10,color='orange')
 	plt.ylabel('Number of flows')
-	plt.xlabel('Completion Time')
+	plt.xlabel('Completion Time in Seconds')
 	if name == 'maglev_2.txt':
 		s = 'Maglev'
 	else:
