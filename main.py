@@ -123,20 +123,18 @@ def plot_box():
 
 	bp_design = ax.boxplot(design_data)
 	color_box(bp_design, 'red')
-	xmarks=[i for i in range(1,100,10)]
-	plt.xticks(xmarks)
-	plt.show()
 
 	bp_maglev = ax.boxplot(maglev_data)
 	color_box(bp_maglev, 'blue')
-	xmarks=[i for i in range(1,100,10)]
+
+	xmarks=[i for i in range(0,100,10)]
 	plt.xticks(xmarks)
 	plt.show()
 
 
 # main
 # plot_line()
-plot_box()
-# plot_dist('maglev_2.txt')
+# plot_box()
+plot_dist('maglev_2.txt')
 # plot_dist('design_3.txt')
 
