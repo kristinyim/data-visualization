@@ -42,14 +42,41 @@ def box_data(name):
 	return data
 
 def dist_data(name):
+	list_tuples = []
 	f = open(name, 'r')
-	last_flow = 0
-	data = np.array([])
 	for line in f:
-		flow, _, _, time = line.split(":",4)
+		# # of flows, flow #, sample, completion time
+		flow, n, s, time = line.split(":",4)
+		time = float(time[:len(time)-2]) # rid of \n
 		if flow == '93':
-			data = np.append(data,time)
+			t = (int(n),time)
+			list_tuples.append(t)
+	list_tuples.sort(key = lambda tup: tup[0])
+	f_out = open('dist_data.txt', 'w')
+	for t in list_tuples:
+		f_out.write('{n0}:{n1}\n'.format(n0=t[0],n1=t[1]))
+	f_out.close()
+
+	f = open('dist_data.txt', 'r')
+	data = np.array([])
+	last_flow = 0
+	avg_time = 0
+	count = 0
+	for line in f:
+		flow,time = line.split(":",2)
+		time = float(time[:len(time)-2]) # rid of \n
+		if last_flow != flow:
+			if last_flow != 0:
+				data = np.append(data,(avg_time/count))
+			# set up next
+			last_flow = flow
+			avg_time = time
+			count = 1
+		else:
+			avg_time += time
+			count += 1
 	return np.sort(data)
+
 
 def plot_line():
 	plt.plot(line_data('design_3.txt'),label='TAALK')
@@ -60,21 +87,21 @@ def plot_line():
 	plt.legend(loc='upper left')
 	plt.show()
 
-def plot_dist():
-	plt.plot(dist_data('design_3.txt'),label='TAALK')
-	plt.plot(dist_data('maglev_2.txt'),label='Maglev')
-	plt.ylabel('Completion Time')
-	plt.xlabel('Sample')
-	plt.title("Completion Times for Flow 93 for TAALK vs. Maglev")
-	plt.legend(loc='upper left')
-	# plt.ylim(top=2)
+def plot_dist(name):
+	data = dist_data(name)
+	plt.hist(data, normed=True, bins=10)
+	plt.ylabel('Number of flows')
+	plt.xlabel('Completion Time')
+	if name == 'maglev_2.txt':
+		s = 'Maglev'
+	else:
+		s = 'TAALK'
+	plt.title("Frequency Histogram for " + s)
 	plt.show()
 
 def color_box(bp, color):
-
     # Define the elements to color. You can also add medians, fliers and means
     elements = ['boxes','caps','whiskers']
-
     # Iterate over each of the elements changing the color
     for elem in elements:
         [plt.setp(bp[elem][idx], color=color) for idx in xrange(len(bp[elem]))]
@@ -104,5 +131,6 @@ def plot_box():
 # main
 # plot_box()
 # plot_line()
-plot_dist()
+plot_dist('maglev_2.txt')
+plot_dist('design_3.txt')
 
