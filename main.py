@@ -120,14 +120,17 @@ def plot_box():
 	plt.legend(loc='upper left')
 	design_data = box_data('design_3.txt')
 	maglev_data = box_data('maglev_2.txt')
+
 	bp_design = ax.boxplot(design_data)
 	color_box(bp_design, 'red')
-	for label in ax.get_xticklabels()[::2]:
-		label.set_visible(False)
+	xmarks=[i for i in range(1,100,10)]
+	plt.xticks(xmarks)
+	plt.show()
+
 	bp_maglev = ax.boxplot(maglev_data)
 	color_box(bp_maglev, 'blue')
-	for label in ax.get_xticklabels()[::2]:
-		label.set_visible(False)
+	xmarks=[i for i in range(1,100,10)]
+	plt.xticks(xmarks)
 	plt.show()
 
 
