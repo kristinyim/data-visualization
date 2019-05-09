@@ -2,6 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 
+BLUE='#3562e8'
+RED='#f75959'
+
 def line_data(name):
 	f = open(name, 'r')
 	data = np.array([])
@@ -89,29 +92,29 @@ def dist_data(name):
 	return np.sort(data)
 
 def plot_line():
-	plt.plot(line_data('design_3.txt'),label='TAALK')
-	plt.plot(line_data('maglev_2.txt'),label='Maglev')
+	plt.plot(line_data('maglev_2.txt'),label='Maglev',color=RED)
+	plt.plot(line_data('design_3.txt'),label='TAALK',color=BLUE)
 	plt.ylabel('Completion Time in seconds')
-	plt.xlabel('Flow Number')
+	plt.xlabel('Load')
 	plt.title("Completion Times for TAALK vs. Maglev")
 	plt.legend(loc='upper left')
 	plt.show()
 
-def plot_dist(name):
-	data = all_dist_data(name)
-	plt.hist(data, bins=10,color='orange')
+def plot_dist():
+	maglev_data = all_dist_data('maglev_2.txt')
+	design_data = all_dist_data('design_3.txt')
+	binwidth = 0.1
+	plt.hist(maglev_data, bins=np.arange(min(maglev_data), max(maglev_data) + binwidth, binwidth),color=RED,label='Maglev',alpha=0.5)
+	plt.hist(design_data, bins=np.arange(min(maglev_data), max(maglev_data) + binwidth, binwidth),color=BLUE,label='TAALK',alpha=0.5)
 	plt.ylabel('Number of flows')
 	plt.xlabel('Completion Time in Seconds')
-	if name == 'maglev_2.txt':
-		s = 'Maglev'
-	else:
-		s = 'TAALK'
-	plt.title("Frequency Histogram for " + s)
+	plt.title('Frequency Histogram')
+	plt.legend(loc='upper left')
 	plt.show()
 
 def color_box(bp, color):
     # Define the elements to color. You can also add medians, fliers and means
-    elements = ['boxes','caps','whiskers']
+    elements = ['boxes','caps','whiskers','medians','fliers']
     # Iterate over each of the elements changing the color
     for elem in elements:
         [plt.setp(bp[elem][idx], color=color) for idx in xrange(len(bp[elem]))]
@@ -123,19 +126,19 @@ def plot_box():
 	ax.set_title('Completion Times with Variance for TAALK vs. Maglev')
 	ax.set_ylim(top=5)
 	plt.ylabel('Completion Time in Seconds')
-	plt.xlabel('Flow Number')
+	plt.xlabel('Load')
 	# temp lines for legend
-	plt.plot([], c='red', label='TAALK')
-	plt.plot([], c='blue', label='Maglev')
+	plt.plot([], c=RED, label='Maglev')
+	plt.plot([], c=BLUE, label='TAALK')
 	plt.legend(loc='upper left')
 	design_data = box_data('design_3.txt')
 	maglev_data = box_data('maglev_2.txt')
 
 	bp_design = ax.boxplot(design_data)
-	color_box(bp_design, 'red')
+	color_box(bp_design, BLUE)
 
 	bp_maglev = ax.boxplot(maglev_data)
-	color_box(bp_maglev, 'blue')
+	color_box(bp_maglev, RED)
 
 	xmarks=[i for i in range(0,100,10)]
 	plt.xticks(xmarks)
@@ -145,6 +148,5 @@ def plot_box():
 # main
 # plot_line()
 # plot_box()
-plot_dist('maglev_2.txt')
-# plot_dist('design_3.txt')
+plot_dist()
 
