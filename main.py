@@ -26,6 +26,25 @@ def line_data(name):
 			count += 1
 	return data
 
+def max_line_data(name):
+	f = open(name, 'r')
+	data = np.array([])
+	last_flow = 0
+	max_time = 0
+	for line in f:
+		flow, _, _, time = line.split(":",4)
+		time = float(time[:len(time)-2]) # rid of \n
+		if last_flow != flow:
+			if last_flow != 0:
+				data = np.append(data,max_time)
+			# set up next
+			last_flow = flow
+			max_time = time
+		else:
+			if max_time < time:
+				max_time = time
+	return data
+
 def box_data(name):
 	f = open(name, 'r')
 	last_flow = 0
@@ -91,12 +110,21 @@ def dist_data(name):
 			count += 1
 	return np.sort(data)
 
-def plot_line():
+def plot_avg_line():
 	plt.plot(line_data('maglev_2.txt'),label='Maglev',color=RED)
 	plt.plot(line_data('design_3.txt'),label='TAALK',color=BLUE)
 	plt.ylabel('Completion Time in seconds')
 	plt.xlabel('Load')
-	plt.title("Completion Times for TAALK vs. Maglev")
+	plt.title("Average Completion Times for TAALK vs. Maglev")
+	plt.legend(loc='upper left')
+	plt.show()
+
+def plot_max_line():
+	plt.plot(max_line_data('maglev_2.txt'),label='Maglev',color=RED)
+	plt.plot(max_line_data('design_3.txt'),label='TAALK',color=BLUE)
+	plt.ylabel('Completion Time in seconds')
+	plt.xlabel('Load')
+	plt.title("Maximum Completion Times for TAALK vs. Maglev")
 	plt.legend(loc='upper left')
 	plt.show()
 
@@ -146,7 +174,8 @@ def plot_box():
 
 
 # main
-# plot_line()
+# plot_avg_line()
+plot_max_line()
 # plot_box()
-plot_dist()
+# plot_dist()
 
