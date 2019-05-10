@@ -140,7 +140,7 @@ def plot_dist():
 	plt.ylabel('Number of flows')
 	plt.xlabel('Completion Time in Seconds')
 	plt.title('Frequency Histogram')
-	plt.legend(loc='upper left')
+	plt.legend(loc='upper right')
 	plt.rcParams.update({'font.size': FONT_SIZE})
 	plt.show()
 
@@ -180,7 +180,7 @@ def plot_box():
 
 # main
 # plot_avg_line()
-plot_max_line()
+# plot_max_line()
 # plot_box()
-# plot_dist()
+plot_dist()
 
