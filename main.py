@@ -111,7 +111,7 @@ def dist_data(name):
 			count += 1
 	return np.sort(data)
 
-def plot_line():
+def plot_both_line():
 	plt.plot(avg_line_data('maglev_2.txt'),label='Maglev: Flow Completion Time',color=RED,linewidth=7)
 	plt.plot(avg_line_data('design_3.txt'),label='TAALK: Flow Completion Time',color=BLUE,linewidth=7)
 	plt.plot(max_line_data('maglev_2.txt'),'--',label='Maglev: Job Completion Time',color=RED,linewidth=7)
@@ -130,7 +130,7 @@ def plot_line():
 
 	plt.show()
 
-def plot_max_line():
+def plot_line():
 	plt.plot(max_line_data('maglev_2.txt'),label='Maglev',color=RED,linewidth=7)
 	plt.plot(max_line_data('design_3.txt'),label='TAALK',color=BLUE,linewidth=7)
 	plt.ylabel('Completion Time in seconds')
