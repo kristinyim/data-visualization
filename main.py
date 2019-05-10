@@ -129,12 +129,11 @@ def plot_avg_line():
 	plt.show()
 
 def plot_max_line():
-	plt.plot(max_line_data('maglev_2.txt'),label='Maglev',color=RED)
-	plt.plot(max_line_data('design_3.txt'),label='TAALK',color=BLUE)
+	plt.plot(max_line_data('maglev_2.txt'),label='Maglev',color=RED,linewidth=7)
+	plt.plot(max_line_data('design_3.txt'),label='TAALK',color=BLUE,linewidth=7)
 	plt.ylabel('Completion Time in seconds')
 	plt.xlabel('Load')
 	plt.title("Job Completion Times for TAALK vs. Maglev")
-	plt.legend(loc='upper left')
 	plt.rcParams.update({'font.size': FONT_SIZE})
 
 	leg = plt.legend(loc='upper left')
@@ -155,10 +154,9 @@ def plot_dist():
 	plt.ylabel('Number of flows')
 	plt.xlabel('Completion Time in Seconds')
 	plt.title('Frequency Histogram')
-	plt.legend(loc='upper right')
 	plt.rcParams.update({'font.size': FONT_SIZE})
 
-	leg = plt.legend(loc='upper left')
+	leg = plt.legend(loc='upper right')
 	# get the lines and texts inside legend box
 	leg_lines = leg.get_lines()
 	leg_texts = leg.get_texts()
@@ -186,7 +184,6 @@ def plot_box():
 	# temp lines for legend
 	plt.plot([], c=RED, label='Maglev')
 	plt.plot([], c=BLUE, label='TAALK')
-	plt.legend(loc='upper left')
 	design_data = box_data('design_3.txt')
 	maglev_data = box_data('maglev_2.txt')
 
@@ -198,7 +195,7 @@ def plot_box():
 
 	xmarks=[i for i in range(0,100,10)]
 	plt.xticks(xmarks)
-	
+
 	leg = plt.legend(loc='upper left')
 	# get the lines and texts inside legend box
 	leg_lines = leg.get_lines()
@@ -211,7 +208,7 @@ def plot_box():
 
 # main
 # plot_avg_line()
-plot_max_line()
+# plot_max_line()
 # plot_box()
-# plot_dist()
+plot_dist()
 
