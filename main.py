@@ -74,7 +74,7 @@ def all_dist_data(name):
 		# # of flows, flow #, sample, completion time
 		flow, n, s, time = line.split(":",4)
 		time = float(time[:len(time)-2]) # rid of \n
-		if flow == '93':
+		if flow == '82':
 			data.append(time)
 	return data
 
@@ -119,7 +119,7 @@ def plot_both_line():
 	plt.plot(avg_line_data('design_3.txt'),label='TAALK: Flow Completion Time',color=BLUE,linewidth=7)
 	plt.plot(max_line_data('maglev_2.txt'),'--',label='Maglev: Job Completion Time',color=RED,linewidth=7)
 	plt.plot(max_line_data('design_3.txt'),'--',label='TAALK: Job Completion Time',color=BLUE,linewidth=7)
-	plt.ylabel('Completion Time in seconds')
+	plt.ylabel('Completion Time (s)')
 	plt.xlabel('Load')
 	plt.title("Flow and Job Completion Times for TAALK vs. Maglev")
 	plt.rcParams.update({'font.size': FONT_SIZE})
@@ -136,7 +136,7 @@ def plot_both_line():
 def plot_line():
 	plt.plot(max_line_data('maglev_2.txt'),label='Maglev',color=RED,linewidth=7)
 	plt.plot(max_line_data('design_3.txt'),label='TAALK',color=BLUE,linewidth=7)
-	plt.ylabel('Completion Time in seconds')
+	plt.ylabel('Completion Time (s)')
 	plt.xlabel('Load')
 	plt.title("Job Completion Times for TAALK vs. Maglev")
 	plt.rcParams.update({'font.size': FONT_SIZE})
@@ -157,10 +157,11 @@ def plot_dist():
 	plt.hist(maglev_data, bins=np.arange(min(maglev_data), max(maglev_data) + binwidth, binwidth),color=RED,label='Maglev',alpha=0.5)
 	plt.hist(design_data, bins=np.arange(min(maglev_data), max(maglev_data) + binwidth, binwidth),color=BLUE,label='TAALK',alpha=0.5)
 	plt.ylabel('Number of flows')
-	plt.xlabel('Completion Time in Seconds')
-	plt.title('Frequency Histogram')
+	plt.xlabel('Completion Time (s)')
+	plt.title('Load 82 Flow Completion Time Distribution')
 	plt.rcParams.update({'font.size': FONT_SIZE})
-
+	plt.gca().tick_params(axis='x', pad=15)
+	plt.gcf().subplots_adjust(bottom=0.15)
 	leg = plt.legend(loc='upper right')
 	# get the lines and texts inside legend box
 	leg_lines = leg.get_lines()
@@ -193,7 +194,7 @@ def plot_box():
 	maglev_data = box_data('maglev_2.txt')
 
 	flierprops = dict(markeredgecolor='g')
-	bp_design = ax.boxplot(design_data,sym='o',flierprops=flierprops)
+	bp_design = ax.boxplot(design_data,sym='o')
 	color_box(bp_design, BLUE)
 
 	bp_maglev = ax.boxplot(maglev_data,sym='o')
@@ -214,6 +215,6 @@ def plot_box():
 
 # main
 # plot_line()
-plot_box()
-# plot_dist()
+# plot_box()
+plot_dist()
 
