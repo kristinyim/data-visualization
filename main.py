@@ -114,28 +114,29 @@ def dist_data(name):
 			count += 1
 	return np.sort(data)
 
-def plot_both_line():
-	plt.plot(avg_line_data('maglev_2.txt'),label='Maglev: Flow Completion Time',color=RED,linewidth=7)
-	plt.plot(avg_line_data('design_3.txt'),label='TAALK: Flow Completion Time',color=BLUE,linewidth=7)
-	plt.plot(max_line_data('maglev_2.txt'),'--',label='Maglev: Job Completion Time',color=RED,linewidth=7)
-	plt.plot(max_line_data('design_3.txt'),'--',label='TAALK: Job Completion Time',color=BLUE,linewidth=7)
-	plt.ylabel('Completion Time (s)')
+def plot_avg_line():
+	plt.plot(avg_line_data('maglev_2.txt'),label='Maglev',color=RED)
+	plt.plot(avg_line_data('design_3.txt'),label='TAALK',color=BLUE)
+	plt.ylabel('Average Completion Time (s)')
 	plt.xlabel('Load')
-	plt.title("Flow and Job Completion Times for TAALK vs. Maglev")
+	plt.title("Average FCT for TAALK vs. Maglev")
 	plt.rcParams.update({'font.size': FONT_SIZE})
+	# plt.gca().tick_params(axis='x', pad=15)
+	# plt.gca().tick_params(axis='y', pad=30)
+	plt.gcf().subplots_adjust(bottom=0.15)
 
 	leg = plt.legend(loc='upper left')
 	# get the lines and texts inside legend box
 	leg_lines = leg.get_lines()
 	leg_texts = leg.get_texts()
 	# bulk-set the properties of all lines and texts
-	plt.setp(leg_lines, linewidth=7)
+	# plt.setp(leg_lines, linewidth=7)
 
 	plt.show()
 
 def plot_line():
-	plt.plot(max_line_data('maglev_2.txt'),label='Maglev',color=RED,linewidth=7)
-	plt.plot(max_line_data('design_3.txt'),label='TAALK',color=BLUE,linewidth=7)
+	plt.plot(max_line_data('maglev_2.txt'),label='Maglev',color=RED)
+	plt.plot(max_line_data('design_3.txt'),label='TAALK',color=BLUE)
 	plt.ylabel('Completion Time (s)')
 	plt.xlabel('Load')
 	plt.title("Job Completion Times for TAALK vs. Maglev")
@@ -147,7 +148,7 @@ def plot_line():
 	leg_lines = leg.get_lines()
 	leg_texts = leg.get_texts()
 	# bulk-set the properties of all lines and texts
-	plt.setp(leg_lines, linewidth=7)
+	# plt.setp(leg_lines, linewidth=7)
 	plt.show()
 
 def plot_dist():
@@ -214,7 +215,8 @@ def plot_box():
 
 
 # main
-# plot_line()
+plot_line()
+# plot_avg_line()
 # plot_box()
-plot_dist()
+# plot_dist()
 
