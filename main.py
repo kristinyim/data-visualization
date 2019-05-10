@@ -6,7 +6,7 @@ BLUE='#3562e8'
 RED='#f75959'
 FONT_SIZE=30
 
-def line_data(name):
+def avg_line_data(name):
 	f = open(name, 'r')
 	data = np.array([])
 	last_flow = 0
@@ -111,12 +111,14 @@ def dist_data(name):
 			count += 1
 	return np.sort(data)
 
-def plot_avg_line():
-	plt.plot(line_data('maglev_2.txt'),label='Maglev',color=RED,linewidth=7)
-	plt.plot(line_data('design_3.txt'),label='TAALK',color=BLUE,linewidth=7)
+def plot_line():
+	plt.plot(avg_line_data('maglev_2.txt'),label='Maglev: Flow Completion Time',color=RED,linewidth=7)
+	plt.plot(avg_line_data('design_3.txt'),label='TAALK: Flow Completion Time',color=BLUE,linewidth=7)
+	plt.plot(max_line_data('maglev_2.txt'),'--',label='Maglev: Job Completion Time',color=RED,linewidth=7)
+	plt.plot(max_line_data('design_3.txt'),'--',label='TAALK: Job Completion Time',color=BLUE,linewidth=7)
 	plt.ylabel('Completion Time in seconds')
 	plt.xlabel('Load')
-	plt.title("Average Completion Times for TAALK vs. Maglev")
+	plt.title("Flow and Job Completion Times for TAALK vs. Maglev")
 	plt.rcParams.update({'font.size': FONT_SIZE})
 
 	leg = plt.legend(loc='upper left')
@@ -207,8 +209,8 @@ def plot_box():
 
 
 # main
-# plot_avg_line()
+plot_line()
 # plot_max_line()
 # plot_box()
-plot_dist()
+# plot_dist()
 
