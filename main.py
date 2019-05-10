@@ -4,6 +4,7 @@ import math
 
 BLUE='#3562e8'
 RED='#f75959'
+FONT_SIZE=30
 
 def line_data(name):
 	f = open(name, 'r')
@@ -117,6 +118,7 @@ def plot_avg_line():
 	plt.xlabel('Load')
 	plt.title("Average Completion Times for TAALK vs. Maglev")
 	plt.legend(loc='upper left')
+	plt.rcParams.update({'font.size': FONT_SIZE})
 	plt.show()
 
 def plot_max_line():
@@ -124,8 +126,9 @@ def plot_max_line():
 	plt.plot(max_line_data('design_3.txt'),label='TAALK',color=BLUE)
 	plt.ylabel('Completion Time in seconds')
 	plt.xlabel('Load')
-	plt.title("Maximum Completion Times for TAALK vs. Maglev")
+	plt.title("Job Completion Times for TAALK vs. Maglev")
 	plt.legend(loc='upper left')
+	plt.rcParams.update({'font.size': FONT_SIZE})
 	plt.show()
 
 def plot_dist():
@@ -138,6 +141,7 @@ def plot_dist():
 	plt.xlabel('Completion Time in Seconds')
 	plt.title('Frequency Histogram')
 	plt.legend(loc='upper left')
+	plt.rcParams.update({'font.size': FONT_SIZE})
 	plt.show()
 
 def color_box(bp, color):
@@ -155,6 +159,7 @@ def plot_box():
 	ax.set_ylim(top=5)
 	plt.ylabel('Completion Time in Seconds')
 	plt.xlabel('Load')
+	plt.rcParams.update({'font.size': FONT_SIZE})
 	# temp lines for legend
 	plt.plot([], c=RED, label='Maglev')
 	plt.plot([], c=BLUE, label='TAALK')
