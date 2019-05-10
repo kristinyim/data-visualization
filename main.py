@@ -178,6 +178,9 @@ def color_box(bp, color):
     # Iterate over each of the elements changing the color
     for elem in elements:
         [plt.setp(bp[elem][idx], color=color) for idx in xrange(len(bp[elem]))]
+    
+	[plt.setp(bp['fliers'][idx], markeredgecolor=color) for idx in xrange(len(bp['fliers']))]
+    
     return
 
 def plot_box():
@@ -188,13 +191,13 @@ def plot_box():
 	plt.ylabel('Individual Flow Completion Time (s)')
 	plt.xlabel('Load')
 	plt.rcParams.update({'font.size': 25})
+	plt.gcf().subplots_adjust(bottom=0.15)
 	# temp lines for legend
 	plt.plot([], c=RED, label='Maglev')
 	plt.plot([], c=BLUE, label='TAALK')
 	design_data = box_data('design_3.txt')
 	maglev_data = box_data('maglev_2.txt')
 
-	flierprops = dict(markeredgecolor='g')
 	bp_design = ax.boxplot(design_data,sym='o')
 	color_box(bp_design, BLUE)
 
@@ -215,8 +218,8 @@ def plot_box():
 
 
 # main
-plot_line()
+# plot_line()
 # plot_avg_line()
-# plot_box()
+plot_box()
 # plot_dist()
 
