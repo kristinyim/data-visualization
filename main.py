@@ -135,8 +135,8 @@ def plot_avg_line():
 	plt.show()
 
 def plot_line():
-	plt.plot(max_line_data('maglev_2.txt'),label='Maglev',color=RED)
-	plt.plot(max_line_data('design_3.txt'),label='TAALK',color=BLUE)
+	plt.plot(max_line_data('maglev_2.txt'),label='Maglev',color=RED,linewidth=4)
+	plt.plot(max_line_data('design_3.txt'),label='TAALK',color=BLUE,linewidth=4)
 	plt.ylabel('Completion Time (s)')
 	plt.xlabel('Load')
 	plt.title("Job Completion Times for TAALK vs. Maglev")
@@ -148,7 +148,7 @@ def plot_line():
 	leg_lines = leg.get_lines()
 	leg_texts = leg.get_texts()
 	# bulk-set the properties of all lines and texts
-	# plt.setp(leg_lines, linewidth=7)
+	plt.setp(leg_lines, linewidth=4)
 	plt.show()
 
 def plot_dist():
@@ -186,7 +186,7 @@ def color_box(bp, color):
 def plot_box():
 	fig, ax = plt.subplots()
 	fig.set_figwidth(40)
-	ax.set_title('Individual Flow Completion Times for TAALK vs. Maglev')
+	ax.set_title('Individual FCT for TAALK vs. Maglev')
 	ax.set_ylim(top=5)
 	plt.ylabel('Individual Flow Completion Time (s)')
 	plt.xlabel('Load')
@@ -212,7 +212,7 @@ def plot_box():
 	leg_lines = leg.get_lines()
 	leg_texts = leg.get_texts()
 	# bulk-set the properties of all lines and texts
-	plt.setp(leg_lines, linewidth=7)
+	# plt.setp(leg_lines, linewidth=4)
 
 	plt.show()
 
