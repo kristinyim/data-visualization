@@ -137,6 +137,7 @@ def plot_line():
 	plt.xlabel('Load')
 	plt.title("Job Completion Times for TAALK vs. Maglev")
 	plt.rcParams.update({'font.size': FONT_SIZE})
+	plt.gcf().subplots_adjust(bottom=0.15)
 
 	leg = plt.legend(loc='upper left')
 	# get the lines and texts inside legend box
@@ -144,7 +145,6 @@ def plot_line():
 	leg_texts = leg.get_texts()
 	# bulk-set the properties of all lines and texts
 	plt.setp(leg_lines, linewidth=7)
-
 	plt.show()
 
 def plot_dist():
