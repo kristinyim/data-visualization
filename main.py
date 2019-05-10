@@ -112,13 +112,20 @@ def dist_data(name):
 	return np.sort(data)
 
 def plot_avg_line():
-	plt.plot(line_data('maglev_2.txt'),label='Maglev',color=RED)
-	plt.plot(line_data('design_3.txt'),label='TAALK',color=BLUE)
+	plt.plot(line_data('maglev_2.txt'),label='Maglev',color=RED,linewidth=7)
+	plt.plot(line_data('design_3.txt'),label='TAALK',color=BLUE,linewidth=7)
 	plt.ylabel('Completion Time in seconds')
 	plt.xlabel('Load')
 	plt.title("Average Completion Times for TAALK vs. Maglev")
-	plt.legend(loc='upper left')
 	plt.rcParams.update({'font.size': FONT_SIZE})
+
+	leg = plt.legend(loc='upper left')
+	# get the lines and texts inside legend box
+	leg_lines = leg.get_lines()
+	leg_texts = leg.get_texts()
+	# bulk-set the properties of all lines and texts
+	plt.setp(leg_lines, linewidth=7)
+
 	plt.show()
 
 def plot_max_line():
@@ -179,8 +186,8 @@ def plot_box():
 
 
 # main
-# plot_avg_line()
+plot_avg_line()
 # plot_max_line()
 # plot_box()
-plot_dist()
+# plot_dist()
 
