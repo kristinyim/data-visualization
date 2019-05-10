@@ -1,6 +1,9 @@
+import matplotlib as mpl
+mpl.use('TkAgg')
 import matplotlib.pyplot as plt
 import numpy as np
 import math
+
 
 BLUE='#3562e8'
 RED='#f75959'
@@ -178,21 +181,22 @@ def color_box(bp, color):
 def plot_box():
 	fig, ax = plt.subplots()
 	fig.set_figwidth(40)
-	ax.set_title('Completion Times with Variance for TAALK vs. Maglev')
+	ax.set_title('Individual Flow Completion Times for TAALK vs. Maglev')
 	ax.set_ylim(top=5)
-	plt.ylabel('Completion Time in Seconds')
+	plt.ylabel('Individual Flow Completion Time (s)')
 	plt.xlabel('Load')
-	plt.rcParams.update({'font.size': FONT_SIZE})
+	plt.rcParams.update({'font.size': 25})
 	# temp lines for legend
 	plt.plot([], c=RED, label='Maglev')
 	plt.plot([], c=BLUE, label='TAALK')
 	design_data = box_data('design_3.txt')
 	maglev_data = box_data('maglev_2.txt')
 
-	bp_design = ax.boxplot(design_data)
+	flierprops = dict(markeredgecolor='g')
+	bp_design = ax.boxplot(design_data,sym='o',flierprops=flierprops)
 	color_box(bp_design, BLUE)
 
-	bp_maglev = ax.boxplot(maglev_data)
+	bp_maglev = ax.boxplot(maglev_data,sym='o')
 	color_box(bp_maglev, RED)
 
 	xmarks=[i for i in range(0,100,10)]
@@ -209,8 +213,7 @@ def plot_box():
 
 
 # main
-plot_line()
-# plot_max_line()
-# plot_box()
+# plot_line()
+plot_box()
 # plot_dist()
 
