@@ -136,6 +136,14 @@ def plot_max_line():
 	plt.title("Job Completion Times for TAALK vs. Maglev")
 	plt.legend(loc='upper left')
 	plt.rcParams.update({'font.size': FONT_SIZE})
+
+	leg = plt.legend(loc='upper left')
+	# get the lines and texts inside legend box
+	leg_lines = leg.get_lines()
+	leg_texts = leg.get_texts()
+	# bulk-set the properties of all lines and texts
+	plt.setp(leg_lines, linewidth=7)
+
 	plt.show()
 
 def plot_dist():
@@ -149,6 +157,14 @@ def plot_dist():
 	plt.title('Frequency Histogram')
 	plt.legend(loc='upper right')
 	plt.rcParams.update({'font.size': FONT_SIZE})
+
+	leg = plt.legend(loc='upper left')
+	# get the lines and texts inside legend box
+	leg_lines = leg.get_lines()
+	leg_texts = leg.get_texts()
+	# bulk-set the properties of all lines and texts
+	plt.setp(leg_lines, linewidth=7)
+
 	plt.show()
 
 def color_box(bp, color):
@@ -182,12 +198,20 @@ def plot_box():
 
 	xmarks=[i for i in range(0,100,10)]
 	plt.xticks(xmarks)
+	
+	leg = plt.legend(loc='upper left')
+	# get the lines and texts inside legend box
+	leg_lines = leg.get_lines()
+	leg_texts = leg.get_texts()
+	# bulk-set the properties of all lines and texts
+	plt.setp(leg_lines, linewidth=7)
+
 	plt.show()
 
 
 # main
-plot_avg_line()
-# plot_max_line()
+# plot_avg_line()
+plot_max_line()
 # plot_box()
 # plot_dist()
 
